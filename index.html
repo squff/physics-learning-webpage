@@ -3369,6 +3369,114 @@
             font-weight: bold;
             color: var(--primary);
         }
+
+        /* 错题本 */
+        .error-notebook {
+            background: var(--surface);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            margin-bottom: var(--space-8);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+        
+        .error-title {
+            font-size: var(--text-xl);
+            font-weight: 600;
+            margin-bottom: var(--space-4);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .error-form {
+            display: flex;
+            gap: var(--space-3);
+            margin-bottom: var(--space-4);
+            flex-wrap: wrap;
+        }
+        
+        .error-input {
+            flex: 1;
+            min-width: 200px;
+            padding: var(--space-3);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            font-size: var(--text-base);
+            background: var(--surface);
+            color: var(--text-primary);
+        }
+        
+        .error-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .error-select {
+            padding: var(--space-3);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            font-size: var(--text-base);
+            background: var(--surface);
+            color: var(--text-primary);
+        }
+        
+        .error-list {
+            display: grid;
+            gap: var(--space-3);
+        }
+        
+        .error-item {
+            background: var(--surface-variant);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            border-left: 4px solid var(--danger);
+            position: relative;
+        }
+        
+        .error-item-topic {
+            font-size: var(--text-sm);
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: var(--space-2);
+        }
+        
+        .error-item-content {
+            font-size: var(--text-base);
+            color: var(--text-primary);
+            margin-bottom: var(--space-2);
+        }
+        
+        .error-item-date {
+            font-size: var(--text-xs);
+            color: var(--text-muted);
+        }
+        
+        .error-item-delete {
+            position: absolute;
+            top: var(--space-2);
+            right: var(--space-2);
+            background: none;
+            border: none;
+            color: var(--danger);
+            cursor: pointer;
+            font-size: var(--text-lg);
+        }
+        
+        .error-item-delete:hover {
+            opacity: 0.7;
+        }
+        
+        .error-count {
+            display: inline-block;
+            background: var(--danger);
+            color: white;
+            padding: 2px 8px;
+            border-radius: var(--radius-full);
+            font-size: var(--text-sm);
+            font-weight: 600;
+        }
 </style>
 </head>
 <body>
@@ -3432,6 +3540,28 @@
                 <span>剩余: <strong id="remainingCount">28</strong> 课时</span>
             </div>
         </section>
+    <!-- 错题本 -->
+    <section class="error-notebook">
+        <div class="error-title">
+            📝 错题本
+            <span class="error-count" id="errorCount">0</span>
+        </div>
+        <div class="error-form">
+            <select class="error-select" id="errorTopic">
+                <option value="">选择主题</option>
+                <option value="力学">力学</option>
+                <option value="振动与波">振动与波</option>
+                <option value="光学">光学</option>
+                <option value="相对论">相对论</option>
+            </select>
+            <input type="text" class="error-input" id="errorInput" placeholder="输入错题内容...">
+            <button class="btn btn-primary" id="addErrorBtn">添加错题</button>
+        </div>
+        <div class="error-list" id="errorList">
+            <!-- 错题列表将通过JavaScript动态生成 -->
+        </div>
+    </section>
+
         
         <!-- 学习统计 -->
         <section class="stats-section animate-on-scroll">
@@ -5587,6 +5717,87 @@
                 
                 container.innerHTML = html;
             };
+
+            
+            // 错题本功能
+            const state_errors = [];
+            
+            // 从localStorage加载错题
+            const loadErrors = () => {
+                const saved = localStorage.getItem('physics_errors');
+                if (saved) {
+                    state_errors.length = 0;
+                    state_errors.push(...JSON.parse(saved));
+                }
+                renderErrors();
+            };
+            
+            // 保存错题到localStorage
+            const saveErrors = () => {
+                localStorage.setItem('physics_errors', JSON.stringify(state_errors));
+                document.getElementById('errorCount').textContent = state_errors.length;
+            };
+            
+            // 渲染错题列表
+            const renderErrors = () => {
+                const container = document.getElementById('errorList');
+                const topic = document.getElementById('errorTopic').value;
+                
+                let filtered = state_errors;
+                if (topic) {
+                    filtered = state_errors.filter(e => e.topic === topic);
+                }
+                
+                container.innerHTML = filtered.map((error, index) => `
+                    <div class="error-item">
+                        <div class="error-item-topic">${error.topic}</div>
+                        <div class="error-item-content">${error.content}</div>
+                        <div class="error-item-date">${error.date}</div>
+                        <button class="error-item-delete" onclick="deleteError(${index})">×</button>
+                    </div>
+                `).join('') || '<p style="color: var(--text-muted); text-align: center;">暂无错题</p>';
+                
+                document.getElementById('errorCount').textContent = state_errors.length;
+            };
+            
+            // 添加错题
+            const addError = () => {
+                const topic = document.getElementById('errorTopic').value;
+                const content = document.getElementById('errorInput').value.trim();
+                
+                if (!topic || !content) {
+                    showToast('请选择主题并输入错题内容');
+                    return;
+                }
+                
+                state_errors.unshift({
+                    topic,
+                    content,
+                    date: new Date().toLocaleDateString('zh-CN')
+                });
+                
+                saveErrors();
+                renderErrors();
+                document.getElementById('errorInput').value = '';
+                showToast('✓ 错题已添加');
+            };
+            
+            // 删除错题
+            const deleteError = (index) => {
+                state_errors.splice(index, 1);
+                saveErrors();
+                renderErrors();
+                showToast('✓ 错题已删除');
+            };
+
+            
+            // 错题本事件
+            document.getElementById('addErrorBtn').addEventListener('click', addError);
+            document.getElementById('errorInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') addError();
+            });
+            document.getElementById('errorTopic').addEventListener('change', renderErrors);
+            loadErrors();
 
             // 主题导航事件
             document.querySelectorAll('.topic-btn').forEach(btn => {
