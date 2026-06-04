@@ -3477,6 +3477,105 @@
             font-size: var(--text-sm);
             font-weight: 600;
         }
+
+        /* 复习提醒 */
+        .reminder-panel {
+            background: var(--surface);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            margin-bottom: var(--space-8);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+        
+        .reminder-title {
+            font-size: var(--text-xl);
+            font-weight: 600;
+            margin-bottom: var(--space-4);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .reminder-list {
+            display: grid;
+            gap: var(--space-3);
+        }
+        
+        .reminder-item {
+            background: var(--surface-variant);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            border-left: 4px solid var(--warning);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .reminder-item-content {
+            flex: 1;
+        }
+        
+        .reminder-item-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-1);
+        }
+        
+        .reminder-item-date {
+            font-size: var(--text-sm);
+            color: var(--text-muted);
+        }
+        
+        .reminder-item-actions {
+            display: flex;
+            gap: var(--space-2);
+        }
+        
+        .reminder-btn {
+            padding: var(--space-1) var(--space-3);
+            border-radius: var(--radius-md);
+            font-size: var(--text-sm);
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+        }
+        
+        .reminder-btn-complete {
+            background: var(--success);
+            color: white;
+        }
+        
+        .reminder-btn-complete:hover {
+            background: #059669;
+        }
+        
+        .reminder-btn-delete {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .reminder-btn-delete:hover {
+            background: #dc2626;
+        }
+        
+        .reminder-empty {
+            text-align: center;
+            color: var(--text-muted);
+            padding: var(--space-4);
+        }
+        
+        .reminder-badge {
+            display: inline-block;
+            background: var(--warning);
+            color: white;
+            padding: 2px 8px;
+            border-radius: var(--radius-full);
+            font-size: var(--text-sm);
+            font-weight: 600;
+            animation: pulse 2s infinite;
+        }
 </style>
 </head>
 <body>
@@ -3540,6 +3639,17 @@
                 <span>剩余: <strong id="remainingCount">28</strong> 课时</span>
             </div>
         </section>
+    <!-- 复习提醒 -->
+    <section class="reminder-panel">
+        <div class="reminder-title">
+            ⏰ 复习提醒
+            <span class="reminder-badge" id="reminderCount">0</span>
+        </div>
+        <div class="reminder-list" id="reminderList">
+            <!-- 复习提醒列表将通过JavaScript动态生成 -->
+        </div>
+    </section>
+
     <!-- 错题本 -->
     <section class="error-notebook">
         <div class="error-title">
@@ -5798,6 +5908,117 @@
             });
             document.getElementById('errorTopic').addEventListener('change', renderErrors);
             loadErrors();
+
+            
+            // 复习提醒功能
+            const state_reminders = [];
+            
+            // 从localStorage加载复习提醒
+            const loadReminders = () => {
+                const saved = localStorage.getItem('physics_reminders');
+                if (saved) {
+                    state_reminders.length = 0;
+                    state_reminders.push(...JSON.parse(saved));
+                }
+                renderReminders();
+            };
+            
+            // 保存复习提醒到localStorage
+            const saveReminders = () => {
+                localStorage.setItem('physics_reminders', JSON.stringify(state_reminders));
+                document.getElementById('reminderCount').textContent = state_reminders.length;
+            };
+            
+            // 渲染复习提醒列表
+            const renderReminders = () => {
+                const container = document.getElementById('reminderList');
+                
+                if (state_reminders.length === 0) {
+                    container.innerHTML = '<div class="reminder-empty">暂无复习提醒，完成课程后自动添加</div>';
+                    return;
+                }
+                
+                // 按日期排序
+                const sorted = [...state_reminders].sort((a, b) => new Date(a.date) - new Date(b.date));
+                
+                container.innerHTML = sorted.map((reminder, index) => `
+                    <div class="reminder-item">
+                        <div class="reminder-item-content">
+                            <div class="reminder-item-title">${reminder.title}</div>
+                            <div class="reminder-item-date">复习日期: ${reminder.date} | ${reminder.topic}</div>
+                        </div>
+                        <div class="reminder-item-actions">
+                            <button class="reminder-btn reminder-btn-complete" onclick="completeReminder(${index})">✓ 完成</button>
+                            <button class="reminder-btn reminder-btn-delete" onclick="deleteReminder(${index})">× 删除</button>
+                        </div>
+                    </div>
+                `).join('');
+                
+                document.getElementById('reminderCount').textContent = state_reminders.length;
+            };
+            
+            // 添加复习提醒
+            const addReminder = (title, topic, days = 7) => {
+                const date = new Date();
+                date.setDate(date.getDate() + days);
+                
+                state_reminders.push({
+                    title,
+                    topic,
+                    date: date.toLocaleDateString('zh-CN'),
+                    created: new Date().toLocaleDateString('zh-CN')
+                });
+                
+                saveReminders();
+                renderReminders();
+            };
+            
+            // 完成复习提醒
+            const completeReminder = (index) => {
+                state_reminders.splice(index, 1);
+                saveReminders();
+                renderReminders();
+                showToast('✓ 复习完成');
+            };
+            
+            // 删除复习提醒
+            const deleteReminder = (index) => {
+                state_reminders.splice(index, 1);
+                saveReminders();
+                renderReminders();
+                showToast('✓ 提醒已删除');
+            };
+            
+            // 自动生成复习提醒（当课程完成时）
+            const originalSaveCompletedCourses = saveCompletedCourses;
+            saveCompletedCourses = function() {
+                originalSaveCompletedCourses();
+                
+                // 检查是否有新完成的课程，自动添加复习提醒
+                const completed = [...state.completedCourses];
+                if (completed.length > 0) {
+                    const lastCompleted = completed[completed.length - 1];
+                    const course = courseData.find(c => c.date === lastCompleted);
+                    if (course) {
+                        const topicName = {
+                            'mechanics': '力学',
+                            'oscillation': '振动与波',
+                            'optics': '光学',
+                            'relativity': '相对论'
+                        }[course.topic];
+                        
+                        // 检查是否已有该课程的提醒
+                        const existing = state_reminders.find(r => r.title === course.content);
+                        if (!existing) {
+                            addReminder(course.content, topicName, 7);
+                        }
+                    }
+                }
+            };
+
+            
+            // 复习提醒事件
+            loadReminders();
 
             // 主题导航事件
             document.querySelectorAll('.topic-btn').forEach(btn => {
