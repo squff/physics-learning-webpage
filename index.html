@@ -3576,6 +3576,261 @@
             font-weight: 600;
             animation: pulse 2s infinite;
         }
+
+        /* 学习资源面板 */
+        .resources-panel {
+            background: var(--surface);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            margin-bottom: var(--space-8);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+        
+        .resources-title {
+            font-size: var(--text-xl);
+            font-weight: 600;
+            margin-bottom: var(--space-4);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-4);
+        }
+        
+        .resource-card {
+            background: var(--surface-variant);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            border-left: 4px solid var(--primary);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .resource-card-title {
+            font-size: var(--text-lg);
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: var(--space-2);
+        }
+        
+        .resource-card-desc {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            line-height: var(--leading-relaxed);
+        }
+        
+        .resource-card-link {
+            display: inline-block;
+            margin-top: var(--space-2);
+            color: var(--primary);
+            font-weight: 500;
+            text-decoration: none;
+        }
+        
+        .resource-card-link:hover {
+            text-decoration: underline;
+        }
+
+        /* 物理学家故事 */
+        .physicist-stories {
+            background: var(--surface);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            margin-bottom: var(--space-8);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+        
+        .stories-title {
+            font-size: var(--text-xl);
+            font-weight: 600;
+            margin-bottom: var(--space-4);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .stories-carousel {
+            display: flex;
+            overflow-x: auto;
+            gap: var(--space-4);
+            padding-bottom: var(--space-4);
+            scroll-snap-type: x mandatory;
+        }
+        
+        .story-card {
+            min-width: 300px;
+            background: var(--surface-variant);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            scroll-snap-align: start;
+            transition: transform 0.3s ease;
+        }
+        
+        .story-card:hover {
+            transform: scale(1.02);
+        }
+        
+        .story-card-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-3);
+        }
+        
+        .story-card-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .story-card-name {
+            font-size: var(--text-lg);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .story-card-years {
+            font-size: var(--text-sm);
+            color: var(--text-muted);
+        }
+        
+        .story-card-content {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            line-height: var(--leading-relaxed);
+        }
+        
+        .story-card-contribution {
+            margin-top: var(--space-2);
+            padding: var(--space-2);
+            background: rgba(37, 99, 235, 0.1);
+            border-radius: var(--radius-md);
+            font-size: var(--text-xs);
+            color: var(--primary);
+        }
+
+        /* 学习方法指南 */
+        .study-methods {
+            background: var(--surface);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            margin-bottom: var(--space-8);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+        
+        .methods-title {
+            font-size: var(--text-xl);
+            font-weight: 600;
+            margin-bottom: var(--space-4);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .methods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-4);
+        }
+        
+        .method-card {
+            background: var(--surface-variant);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            border-top: 4px solid var(--primary);
+        }
+        
+        .method-card-icon {
+            font-size: 32px;
+            margin-bottom: var(--space-2);
+        }
+        
+        .method-card-title {
+            font-size: var(--text-lg);
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-2);
+        }
+        
+        .method-card-content {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            line-height: var(--leading-relaxed);
+        }
+        
+        .method-card-tips {
+            margin-top: var(--space-3);
+            padding: var(--space-2);
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: var(--radius-md);
+            font-size: var(--text-xs);
+            color: #10b981;
+        }
+
+        /* 考试技巧 */
+        .exam-tips {
+            background: var(--surface);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            margin-bottom: var(--space-8);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+        
+        .exam-title {
+            font-size: var(--text-xl);
+            font-weight: 600;
+            margin-bottom: var(--space-4);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .exam-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-4);
+        }
+        
+        .exam-card {
+            background: var(--surface-variant);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            border-left: 4px solid var(--warning);
+        }
+        
+        .exam-card-title {
+            font-size: var(--text-base);
+            font-weight: 600;
+            color: var(--warning);
+            margin-bottom: var(--space-2);
+        }
+        
+        .exam-card-content {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            line-height: var(--leading-relaxed);
+        }
 </style>
 </head>
 <body>
@@ -3639,6 +3894,286 @@
                 <span>剩余: <strong id="remainingCount">28</strong> 课时</span>
             </div>
         </section>
+    <!-- 考试技巧 -->
+    <section class="exam-tips">
+        <div class="exam-title">📋 考试技巧</div>
+        <div class="exam-content">
+            <div class="exam-card">
+                <div class="exam-card-title">⏰ 时间分配</div>
+                <div class="exam-card-content">
+                    选择题：每题1-2分钟<br>
+                    填空题：每题2-3分钟<br>
+                    计算题：每题10-15分钟<br>
+                    检查时间：预留10-15分钟
+                </div>
+            </div>
+            
+            <div class="exam-card">
+                <div class="exam-card-title">📝 答题策略</div>
+                <div class="exam-card-content">
+                    先易后难，确保基础分<br>
+                    仔细审题，明确已知条件<br>
+                    画图辅助，理清物理过程<br>
+                    分步计算，避免计算错误
+                </div>
+            </div>
+            
+            <div class="exam-card">
+                <div class="exam-card-title">✅ 检查要点</div>
+                <div class="exam-card-content">
+                    检查单位是否正确<br>
+                    检查数量级是否合理<br>
+                    检查公式使用是否正确<br>
+                    检查计算过程是否有误
+                </div>
+            </div>
+            
+            <div class="exam-card">
+                <div class="exam-card-title">🎯 常见题型</div>
+                <div class="exam-card-content">
+                    力学：受力分析、运动学计算<br>
+                    电磁学：电场、磁场计算<br>
+                    光学：干涉、衍射计算<br>
+                    相对论：时间、长度变换
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 学习方法指南 -->
+    <section class="study-methods">
+        <div class="methods-title">🎯 学习方法指南</div>
+        <div class="methods-grid">
+            <div class="method-card">
+                <div class="method-card-icon">📖</div>
+                <div class="method-card-title">预习方法</div>
+                <div class="method-card-content">
+                    课前阅读教材相关章节，标记不懂的概念和公式。尝试理解基本概念，记录疑问点，带着问题听课。
+                </div>
+                <div class="method-card-tips">
+                    💡 提示：预习时间建议15-30分钟
+                </div>
+            </div>
+            
+            <div class="method-card">
+                <div class="method-card-icon">🎧</div>
+                <div class="method-card-title">听课技巧</div>
+                <div class="method-card-content">
+                    重点听老师讲解的概念和推导过程，记录关键公式和解题方法。积极参与课堂讨论，及时提出疑问。
+                </div>
+                <div class="method-card-tips">
+                    💡 提示：记笔记时用自己的话总结
+                </div>
+            </div>
+            
+            <div class="method-card">
+                <div class="method-card-icon">📝</div>
+                <div class="method-card-title">复习策略</div>
+                <div class="method-card-content">
+                    课后及时复习，整理笔记。先理解概念，再做练习题。定期回顾已学内容，避免遗忘。
+                </div>
+                <div class="method-card-tips">
+                    💡 提示：遵循艾宾浩斯遗忘曲线
+                </div>
+            </div>
+            
+            <div class="method-card">
+                <div class="method-card-icon">🧮</div>
+                <div class="method-card-title">解题方法</div>
+                <div class="method-card-content">
+                    审题要仔细，明确已知条件和求解目标。画受力图、示意图，选择合适公式。解题后检查答案的合理性。
+                </div>
+                <div class="method-card-tips">
+                    💡 提示：建立错题本，定期复习
+                </div>
+            </div>
+            
+            <div class="method-card">
+                <div class="method-card-icon">🔬</div>
+                <div class="method-card-title">实验学习</div>
+                <div class="method-card-content">
+                    认真预习实验原理和步骤。实验时仔细观察，记录数据。分析实验结果，理解物理规律。
+                </div>
+                <div class="method-card-tips">
+                    💡 提示：实验报告要详细规范
+                </div>
+            </div>
+            
+            <div class="method-card">
+                <div class="method-card-icon">💡</div>
+                <div class="method-card-title">思维培养</div>
+                <div class="method-card-content">
+                    培养物理思维，理解物理图像。多思考"为什么"，而不仅仅是"怎么做"。联系实际，理解物理应用。
+                </div>
+                <div class="method-card-tips">
+                    💡 提示：多问"如果...会怎样"
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 物理学家故事 -->
+    <section class="physicist-stories">
+        <div class="stories-title">👨‍🔬 物理学家故事</div>
+        <div class="stories-carousel">
+            <div class="story-card">
+                <div class="story-card-header">
+                    <div class="story-card-avatar">🍎</div>
+                    <div>
+                        <div class="story-card-name">艾萨克·牛顿</div>
+                        <div class="story-card-years">1643-1727</div>
+                    </div>
+                </div>
+                <div class="story-card-content">
+                    英国物理学家、数学家、天文学家。经典力学的奠基人，提出了牛顿三大运动定律和万有引力定律。
+                </div>
+                <div class="story-card-contribution">
+                    💡 贡献：牛顿力学、微积分、光学理论
+                </div>
+            </div>
+            
+            <div class="story-card">
+                <div class="story-card-header">
+                    <div class="story-card-avatar">💡</div>
+                    <div>
+                        <div class="story-card-name">阿尔伯特·爱因斯坦</div>
+                        <div class="story-card-years">1879-1955</div>
+                    </div>
+                </div>
+                <div class="story-card-content">
+                    理论物理学家，相对论的创立者。提出了质能方程E=mc²，解释了光电效应，获得1921年诺贝尔物理学奖。
+                </div>
+                <div class="story-card-contribution">
+                    💡 贡献：相对论、光电效应、质能方程
+                </div>
+            </div>
+            
+            <div class="story-card">
+                <div class="story-card-header">
+                    <div class="story-card-avatar">⚛️</div>
+                    <div>
+                        <div class="story-card-name">尼尔斯·玻尔</div>
+                        <div class="story-card-years">1885-1962</div>
+                    </div>
+                </div>
+                <div class="story-card-content">
+                    丹麦物理学家，量子力学的先驱。提出了玻尔原子模型，解释了氢原子光谱，获得1922年诺贝尔物理学奖。
+                </div>
+                <div class="story-card-contribution">
+                    💡 贡献：玻尔模型、互补原理、量子理论
+                </div>
+            </div>
+            
+            <div class="story-card">
+                <div class="story-card-header">
+                    <div class="story-card-avatar">⚡</div>
+                    <div>
+                        <div class="story-card-name">詹姆斯·克拉克·麦克斯韦</div>
+                        <div class="story-card-years">1831-1879</div>
+                    </div>
+                </div>
+                <div class="story-card-content">
+                    英国物理学家，经典电动力学的创始人。建立了麦克斯韦方程组，预言了电磁波的存在。
+                </div>
+                <div class="story-card-contribution">
+                    💡 贡献：电磁理论、麦克斯韦方程组、气体动理论
+                </div>
+            </div>
+            
+            <div class="story-card">
+                <div class="story-card-header">
+                    <div class="story-card-avatar">🔭</div>
+                    <div>
+                        <div class="story-card-name">玛丽·居里</div>
+                        <div class="story-card-years">1867-1934</div>
+                    </div>
+                </div>
+                <div class="story-card-content">
+                    波兰裔法国物理学家、化学家。发现了放射性元素钋和镭，获得1903年诺贝尔物理学奖和1911年诺贝尔化学奖。
+                </div>
+                <div class="story-card-contribution">
+                    💡 贡献：放射性研究、发现钋和镭、开创放射化学
+                </div>
+            </div>
+            
+            <div class="story-card">
+                <div class="story-card-header">
+                    <div class="story-card-avatar">🌌</div>
+                    <div>
+                        <div class="story-card-name">理查德·费曼</div>
+                        <div class="story-card-years">1918-1988</div>
+                    </div>
+                </div>
+                <div class="story-card-content">
+                    美国理论物理学家，量子电动力学的创始人之一。提出了费曼图，获得1965年诺贝尔物理学奖。
+                </div>
+                <div class="story-card-contribution">
+                    💡 贡献：量子电动力学、费曼图、纳米技术
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 学习资源 -->
+    <section class="resources-panel">
+        <div class="resources-title">📚 学习资源推荐</div>
+        <div class="resources-grid">
+            <div class="resource-card">
+                <div class="resource-card-title">📖 教材推荐</div>
+                <div class="resource-card-desc">
+                    《大学物理学》（赵凯华著）- 经典教材，内容全面<br>
+                    《费恩曼物理学讲义》- 深入浅出，启发思维<br>
+                    《物理学基础》（Halliday著）- 国际经典教材
+                </div>
+            </div>
+            
+            <div class="resource-card">
+                <div class="resource-card-title">🎥 视频课程</div>
+                <div class="resource-card-desc">
+                    B站：清华大学大学物理公开课<br>
+                    中国大学MOOC：大学物理（系列课程）<br>
+                    Coursera：Introduction to Physics
+                </div>
+            </div>
+            
+            <div class="resource-card">
+                <div class="resource-card-title">🌐 在线资源</div>
+                <div class="resource-card-desc">
+                    物理学报：http://wulixb.iphy.ac.cn/<br>
+                    中国物理学会：http://www.cps-net.org.cn/<br>
+                    Khan Academy Physics：https://www.khanacademy.org/science/physics
+                </div>
+            </div>
+            
+            <div class="resource-card">
+                <div class="resource-card-title">📱 学习工具</div>
+                <div class="resource-card-desc">
+                    Phyphox：手机物理实验APP<br>
+                    Wolfram Alpha：物理公式计算<br>
+                    Desmos：函数图像绘制工具
+                </div>
+            </div>
+            
+            <div class="resource-card">
+                <div class="resource-card-title">📝 练习题库</div>
+                <div class="resource-card-desc">
+                    大学物理习题集（各高校真题）<br>
+                    Physics Classroom：https://www.physicsclassroom.com/<br>
+                    HyperPhysics：http://hyperphysics.phy-astr.gsu.edu/
+                </div>
+            </div>
+            
+            <div class="resource-card">
+                <div class="resource-card-title">🔬 实验资源</div>
+                <div class="resource-card-desc">
+                    PhET互动模拟：https://phet.colorado.edu/<br>
+                    物理实验虚拟仿真平台<br>
+                    大学物理实验（国家精品课程）
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- 复习提醒 -->
     <section class="reminder-panel">
         <div class="reminder-title">
