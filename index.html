@@ -3831,6 +3831,151 @@
             color: var(--text-secondary);
             line-height: var(--leading-relaxed);
         }
+
+        /* 物理实验介绍 */
+        .experiments-panel {
+            background: var(--surface);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            margin-bottom: var(--space-8);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+        
+        .experiments-title {
+            font-size: var(--text-xl);
+            font-weight: 600;
+            margin-bottom: var(--space-4);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .experiments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-4);
+        }
+        
+        .experiment-card {
+            background: var(--surface-variant);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            border-top: 4px solid var(--secondary);
+            transition: transform 0.3s ease;
+        }
+        
+        .experiment-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .experiment-card-icon {
+            font-size: 32px;
+            margin-bottom: var(--space-2);
+        }
+        
+        .experiment-card-title {
+            font-size: var(--text-lg);
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-2);
+        }
+        
+        .experiment-card-desc {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            line-height: var(--leading-relaxed);
+            margin-bottom: var(--space-2);
+        }
+        
+        .experiment-card-keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-1);
+        }
+        
+        .experiment-keyword {
+            padding: 2px 8px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: var(--radius-full);
+            font-size: var(--text-xs);
+            color: #10b981;
+        }
+
+        /* 物理学史时间线 */
+        .timeline-panel {
+            background: var(--surface);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            margin-bottom: var(--space-8);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+        
+        .timeline-title {
+            font-size: var(--text-xl);
+            font-weight: 600;
+            margin-bottom: var(--space-4);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--primary);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: var(--space-4);
+            padding: var(--space-3);
+            background: var(--surface-variant);
+            border-radius: var(--radius-lg);
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -25px;
+            top: 15px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 2px solid var(--surface);
+        }
+        
+        .timeline-year {
+            font-size: var(--text-sm);
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: var(--space-1);
+        }
+        
+        .timeline-event {
+            font-size: var(--text-base);
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: var(--space-1);
+        }
+        
+        .timeline-desc {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+        }
 </style>
 </head>
 <body>
@@ -3894,6 +4039,144 @@
                 <span>剩余: <strong id="remainingCount">28</strong> 课时</span>
             </div>
         </section>
+    <!-- 物理实验介绍 -->
+    <section class="experiments-panel">
+        <div class="experiments-title">🔬 经典物理实验</div>
+        <div class="experiments-grid">
+            <div class="experiment-card">
+                <div class="experiment-card-icon">⚖️</div>
+                <div class="experiment-card-title">杨氏双缝干涉实验</div>
+                <div class="experiment-card-desc">
+                    托马斯·杨在1801年进行的实验，首次证明了光的波动性。通过双缝观察到明暗相间的干涉条纹，为光的波动理论提供了有力证据。
+                </div>
+                <div class="experiment-card-keywords">
+                    <span class="experiment-keyword">波动光学</span>
+                    <span class="experiment-keyword">干涉</span>
+                    <span class="experiment-keyword">光程差</span>
+                </div>
+            </div>
+            
+            <div class="experiment-card">
+                <div class="experiment-card-icon">🧲</div>
+                <div class="experiment-card-title">法拉第电磁感应实验</div>
+                <div class="experiment-card-desc">
+                    迈克尔·法拉第在1831年发现电磁感应现象。通过改变磁场产生电流，揭示了电与磁的联系，为电磁理论奠定了基础。
+                </div>
+                <div class="experiment-card-keywords">
+                    <span class="experiment-keyword">电磁学</span>
+                    <span class="experiment-keyword">感应</span>
+                    <span class="experiment-keyword">磁场</span>
+                </div>
+            </div>
+            
+            <div class="experiment-card">
+                <div class="experiment-card-icon">🌈</div>
+                <div class="experiment-card-title">迈克尔逊-莫雷实验</div>
+                <div class="experiment-card-desc">
+                    1887年进行的实验，试图检测以太的存在。实验结果为零，否定了以太假说，为爱因斯坦的相对论提供了实验基础。
+                </div>
+                <div class="experiment-card-keywords">
+                    <span class="experiment-keyword">相对论</span>
+                    <span class="experiment-keyword">光速</span>
+                    <span class="experiment-keyword">以太</span>
+                </div>
+            </div>
+            
+            <div class="experiment-card">
+                <div class="experiment-card-icon">⚛️</div>
+                <div class="experiment-card-title">卢瑟福散射实验</div>
+                <div class="experiment-card-desc">
+                    1911年进行的实验，用α粒子轰击金箔。发现大多数粒子穿过，少数发生大角度偏转，据此提出了原子的核式结构模型。
+                </div>
+                <div class="experiment-card-keywords">
+                    <span class="experiment-keyword">原子物理</span>
+                    <span class="experiment-keyword">散射</span>
+                    <span class="experiment-keyword">原子核</span>
+                </div>
+            </div>
+            
+            <div class="experiment-card">
+                <div class="experiment-card-icon">💡</div>
+                <div class="experiment-card-title">光电效应实验</div>
+                <div class="experiment-card-desc">
+                    赫兹在1887年发现，爱因斯坦在1905年解释。光照射金属表面产生电子，证明了光的粒子性，为量子力学奠基。
+                </div>
+                <div class="experiment-card-keywords">
+                    <span class="experiment-keyword">量子力学</span>
+                    <span class="experiment-keyword">光子</span>
+                    <span class="experiment-keyword">电子</span>
+                </div>
+            </div>
+            
+            <div class="experiment-card">
+                <div class="experiment-card-icon">🌡️</div>
+                <div class="experiment-card-title">黑体辐射实验</div>
+                <div class="experiment-card-desc">
+                    普朗克在1900年为解释黑体辐射提出能量量子化假说，标志着量子物理的开端。解决了紫外灾难问题。
+                </div>
+                <div class="experiment-card-keywords">
+                    <span class="experiment-keyword">热力学</span>
+                    <span class="experiment-keyword">量子化</span>
+                    <span class="experiment-keyword">普朗克</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 物理学史时间线 -->
+    <section class="timeline-panel">
+        <div class="timeline-title">📜 物理学史时间线</div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-year">1687年</div>
+                <div class="timeline-event">牛顿《自然哲学的数学原理》出版</div>
+                <div class="timeline-desc">建立了经典力学体系，提出三大运动定律和万有引力定律</div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">1831年</div>
+                <div class="timeline-event">法拉第发现电磁感应</div>
+                <div class="timeline-desc">揭示了电与磁的联系，为电磁理论奠定基础</div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">1865年</div>
+                <div class="timeline-event">麦克斯韦建立电磁理论</div>
+                <div class="timeline-desc">统一了电学、磁学和光学，预言电磁波存在</div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">1900年</div>
+                <div class="timeline-event">普朗克提出量子假说</div>
+                <div class="timeline-desc">解释黑体辐射，能量量子化，标志量子物理开端</div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">1905年</div>
+                <div class="timeline-event">爱因斯坦发表狭义相对论</div>
+                <div class="timeline-desc">提出光速不变原理，时间膨胀，长度收缩，质能方程</div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">1911年</div>
+                <div class="timeline-event">卢瑟福提出原子核式模型</div>
+                <div class="timeline-desc">根据α粒子散射实验，发现原子核</div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">1915年</div>
+                <div class="timeline-event">爱因斯坦建立广义相对论</div>
+                <div class="timeline-desc">引力是时空弯曲，预言引力波、黑洞</div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">1925年</div>
+                <div class="timeline-event">海森堡建立矩阵力学</div>
+                <div class="timeline-desc">量子力学的重要形式，不确定性原理</div>
+            </div>
+        </div>
+    </section>
+
+
     <!-- 考试技巧 -->
     <section class="exam-tips">
         <div class="exam-title">📋 考试技巧</div>
