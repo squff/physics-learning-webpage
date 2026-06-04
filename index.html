@@ -3311,6 +3311,64 @@
         .formula-close:hover {
             color: var(--danger);
         }
+
+        /* 学习进度图表 */
+        .progress-chart {
+            background: var(--surface);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            margin-bottom: var(--space-8);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+        
+        .chart-title {
+            font-size: var(--text-xl);
+            font-weight: 600;
+            margin-bottom: var(--space-4);
+            color: var(--text-primary);
+        }
+        
+        .chart-container {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            margin-top: 20px;
+        }
+        
+        .chart-bar {
+            position: absolute;
+            bottom: 0;
+            background: linear-gradient(to top, var(--primary), var(--primary-light));
+            border-radius: 5px 5px 0 0;
+            transition: height 1s ease;
+            cursor: pointer;
+        }
+        
+        .chart-bar:hover {
+            opacity: 0.8;
+            transform: scaleX(1.05);
+        }
+        
+        .chart-label {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+        
+        .chart-value {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            font-weight: bold;
+            color: var(--primary);
+        }
 </style>
 </head>
 <body>
@@ -3415,6 +3473,14 @@
                 </div>
             </div>
         </section>
+    <!-- 学习进度图表 -->
+    <section class="progress-chart" id="progressChart">
+        <h2 class="chart-title">📊 学习进度图表</h2>
+        <div class="chart-container" id="chartContainer">
+            <!-- 图表将通过JavaScript动态生成 -->
+        </div>
+    </section>
+
         
         <!-- 筛选和搜索 -->
         <section class="filter-section">
@@ -4760,6 +4826,7 @@
             
             // 更新主题进度
             updateTopicProgress();
+            updateProgressChart();
             
             // 更新知识点导航
             updateKnowledgeNav();
@@ -5473,6 +5540,54 @@
                 renderCourseList();
             });
             
+            
+            // 更新学习进度图表
+            const updateProgressChart = () => {
+                const container = document.getElementById('chartContainer');
+                if (!container) return;
+                
+                const topics = {
+                    '力学': { count: 11, color: '#2563eb' },
+                    '振动与波': { count: 6, color: '#059669' },
+                    '光学': { count: 8, color: '#8b5cf6' },
+                    '相对论': { count: 3, color: '#f59e0b' }
+                };
+                
+                let html = '';
+                const barWidth = 60;
+                const gap = 20;
+                const maxHeight = 180;
+                const maxCount = Math.max(...Object.values(topics).map(t => t.count));
+                
+                Object.entries(topics).forEach(([name, data], index) => {
+                    const height = (data.count / maxCount) * maxHeight;
+                    const left = index * (barWidth + gap) + 20;
+                    
+                    // 计算已完成的课程数
+                    const completedCount = courseData.filter(c => {
+                        const topicName = {
+                            'mechanics': '力学',
+                            'oscillation': '振动与波',
+                            'optics': '光学',
+                            'relativity': '相对论'
+                        }[c.topic];
+                        return topicName === name && state.completedCourses.has(c.date);
+                    }).length;
+                    
+                    const completedHeight = (completedCount / maxCount) * maxHeight;
+                    
+                    html += `
+                        <div class="chart-bar" style="left:${left}px;width:${barWidth}px;height:${height}px;background:linear-gradient(to top, ${data.color}80, ${data.color});">
+                            <div class="chart-value">${completedCount}/${data.count}</div>
+                            <div class="chart-label">${name}</div>
+                        </div>
+                        <div class="chart-bar" style="left:${left}px;width:${barWidth}px;height:${completedHeight}px;background:linear-gradient(to top, ${data.color}, ${data.color});opacity:0.8;z-index:1;"></div>
+                    `;
+                });
+                
+                container.innerHTML = html;
+            };
+
             // 主题导航事件
             document.querySelectorAll('.topic-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
