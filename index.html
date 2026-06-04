@@ -3227,9 +3227,96 @@
             50% { opacity: 1; }
             100% { left: 100%; opacity: 0; }
         }
+
+        /* 公式速查表 */
+        .formula-panel {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10002;
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            border: 2px solid var(--primary);
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .formula-panel.visible {
+            display: block;
+        }
+        
+        .formula-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .formula-category {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: var(--surface-variant);
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .formula-category-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .formula-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .formula-name {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        
+        .formula-expression {
+            font-family: 'Courier New', monospace;
+            color: var(--primary);
+            font-weight: bold;
+            background: var(--primary-light);
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        
+        .formula-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+        }
+        
+        .formula-close:hover {
+            color: var(--danger);
+        }
 </style>
 </head>
 <body>
+    <!-- 公式速查表按钮 -->
+    <button id="formulaBtn" style="position:fixed;top:50%;right:140px;z-index:10001;width:40px;height:40px;border-radius:50%;border:2px solid #10b981;background:var(--surface);color:#10b981;font-size:20px;cursor:pointer;transition:all 0.3s ease;transform:translateY(-50%);" title="物理公式速查表">📐</button>
+
     <!-- 页面加载动画 -->
     <div class="loading-screen" id="loadingScreen">
         <div class="loading-logo">📚</div>
@@ -5292,7 +5379,13 @@
             themeToggle.classList.toggle('active', newTheme === 'dark');
         }
         
-        // 加载主题设置
+        
+            // 公式速查表按钮事件
+            document.getElementById('formulaBtn').addEventListener('click', () => {
+                document.getElementById('formulaPanel').classList.toggle('visible');
+            });
+
+            // 加载主题设置
         function loadTheme() {
             const savedTheme = localStorage.getItem('physics_theme') || 'light';
             document.documentElement.setAttribute('data-theme', savedTheme);
@@ -7443,5 +7536,50 @@
             });
         });
     </script>
+
+    <!-- 公式速查表面板 -->
+    <div class="formula-panel" id="formulaPanel">
+        <button class="formula-close" onclick="document.getElementById('formulaPanel').classList.remove('visible')">&times;</button>
+        <div class="formula-title">📚 大学物理公式速查表</div>
+        
+        <div class="formula-category">
+            <div class="formula-category-title">⚡ 力学</div>
+            <div class="formula-item"><span class="formula-name">牛顿第二定律</span><span class="formula-expression">F = ma</span></div>
+            <div class="formula-item"><span class="formula-name">动量</span><span class="formula-expression">p = mv</span></div>
+            <div class="formula-item"><span class="formula-name">动能</span><span class="formula-expression">Ek = ½mv²</span></div>
+            <div class="formula-item"><span class="formula-name">势能</span><span class="formula-expression">Ep = mgh</span></div>
+            <div class="formula-item"><span class="formula-name">功</span><span class="formula-expression">W = Fs cosθ</span></div>
+            <div class="formula-item"><span class="formula-name">功率</span><span class="formula-expression">P = W/t = Fv</span></div>
+            <div class="formula-item"><span class="formula-name">角动量</span><span class="formula-expression">L = r × p = Iω</span></div>
+            <div class="formula-item"><span class="formula-name">转动惯量</span><span class="formula-expression">I = Σmᵢrᵢ²</span></div>
+        </div>
+        
+        <div class="formula-category">
+            <div class="formula-category-title">🌊 振动与波</div>
+            <div class="formula-item"><span class="formula-name">简谐振动</span><span class="formula-expression">x = A cos(ωt + φ)</span></div>
+            <div class="formula-item"><span class="formula-name">周期</span><span class="formula-expression">T = 2π/ω = 2π√(m/k)</span></div>
+            <div class="formula-item"><span class="formula-name">波速</span><span class="formula-expression">v = λf = ω/k</span></div>
+            <div class="formula-item"><span class="formula-name">波函数</span><span class="formula-expression">y = A cos(ωt - kx)</span></div>
+            <div class="formula-item"><span class="formula-name">多普勒效应</span><span class="formula-expression">f' = f(v ± v₀)/(v ∓ vₛ)</span></div>
+        </div>
+        
+        <div class="formula-category">
+            <div class="formula-category-title">💡 光学</div>
+            <div class="formula-item"><span class="formula-name">光程差</span><span class="formula-expression">Δ = r₂ - r₁</span></div>
+            <div class="formula-item"><span class="formula-name">干涉条件</span><span class="formula-expression">Δ = kλ (明纹)</span></div>
+            <div class="formula-item"><span class="formula-name">条纹间距</span><span class="formula-expression">Δy = λD/d</span></div>
+            <div class="formula-item"><span class="formula-name">单缝衍射</span><span class="formula-expression">a sinθ = kλ</span></div>
+            <div class="formula-item"><span class="formula-name">光栅方程</span><span class="formula-expression">d sinθ = kλ</span></div>
+            <div class="formula-item"><span class="formula-name">马吕斯定律</span><span class="formula-expression">I = I₀ cos²θ</span></div>
+        </div>
+        
+        <div class="formula-category">
+            <div class="formula-category-title">⚡ 相对论</div>
+            <div class="formula-item"><span class="formula-name">时间延缓</span><span class="formula-expression">Δt = Δt₀/√(1 - v²/c²)</span></div>
+            <div class="formula-item"><span class="formula-name">长度收缩</span><span class="formula-expression">L = L₀√(1 - v²/c²)</span></div>
+            <div class="formula-item"><span class="formula-name">质能关系</span><span class="formula-expression">E = mc²</span></div>
+            <div class="formula-item"><span class="formula-name">相对论动量</span><span class="formula-expression">p = γm₀v</span></div>
+        </div>
+    </div>
 </body>
 </html>
