@@ -3976,6 +3976,17 @@
             font-size: var(--text-sm);
             color: var(--text-secondary);
         }
+
+        /* 加载动画自动消失后备 */
+        @keyframes loadingFadeOut {
+            0% { opacity: 1; visibility: visible; }
+            80% { opacity: 1; visibility: visible; }
+            100% { opacity: 0; visibility: hidden; pointer-events: none; }
+        }
+        
+        .loading-screen {
+            animation: loadingFadeOut 3s ease forwards !important;
+        }
 </style>
 </head>
 <body>
@@ -3983,7 +3994,7 @@
     <button id="formulaBtn" style="position:fixed;top:50%;right:140px;z-index:10001;width:40px;height:40px;border-radius:50%;border:2px solid #10b981;background:var(--surface);color:#10b981;font-size:20px;cursor:pointer;transition:all 0.3s ease;transform:translateY(-50%);" title="物理公式速查表">📐</button>
 
     <!-- 页面加载动画 -->
-    <div class="loading-screen" id="loadingScreen">
+    <div class="loading-screen" id="loadingScreen" style="animation: loadingProgress 2.5s ease forwards;">
         <div class="loading-logo">📚</div>
         <div class="loading-text typewriter">大学物理学习网页</div>
         <div class="loading-bar">
@@ -8946,5 +8957,11 @@
             <div class="formula-item"><span class="formula-name">相对论动量</span><span class="formula-expression">p = γm₀v</span></div>
         </div>
     </div>
-</body>
+
+    <noscript>
+        <div style="position:fixed;top:0;left:0;right:0;bottom:0;background:#2563eb;color:white;display:flex;align-items:center;justify-content:center;z-index:99999;font-size:24px;">
+            请启用JavaScript以使用此网页
+        </div>
+    </noscript>
+    </body>
 </html>
